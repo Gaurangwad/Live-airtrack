@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Live AirTrack — Global Flight &amp; Ship Tracker</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <!-- Top-left: live global carbon emissions -->
+    <div id="carbon-panel" class="panel" tabindex="0">
+      <div class="carbon-label">LIVE CO₂ EMISSIONS · today (UTC)</div>
+      <div class="carbon-total"><span id="carbon-total">0</span> <span class="unit">t</span></div>
+      <div class="carbon-rate"><span id="carbon-rate">0</span> kg/s now</div>
+      <div id="carbon-breakdown" class="carbon-breakdown">
+        <div class="bd-row"><span class="dot dot-flight"></span>Flights <b id="bd-flight">0 t</b><i id="bd-flight-n">0</i></div>
+        <div class="bd-row"><span class="dot dot-ship"></span>Ships <b id="bd-ship">0 t</b><i id="bd-ship-n">0</i></div>
+        <div class="bd-hint">Estimated from live speed × distance model. Hover persists.</div>
+      </div>
+    </div>
+
+    <!-- Top-center: search + navbar -->
+    <div id="search-bar" class="panel">
+      <input id="flight-input" type="text" placeholder="Track a flight — e.g. UA123 (or click a plane/ship)" autocomplete="off" />
+      <button id="track-btn">Track</button>
+      <div class="nav-sep"></div>
+      <div class="place-search">
+        <input id="place-input" type="text" placeholder="Go to airport / port…" autocomplete="off" />
+        <ul id="place-results" class="place-results hidden"></ul>
+      </div>
+      <button id="compare-btn" title="Compare CO₂ by transport mode">⚖ Compare CO₂</button>
+      <div id="search-msg"></div>
+    </div>
+
+    <!-- CO₂ comparison modal -->
+    <div id="compare-modal" class="modal-overlay hidden">
+      <div class="modal panel">
+        <button id="compare-close" aria-label="Close">×</button>
+        <h2>CO₂ comparison</h2>
+        <p class="modal-sub">Enter a trip distance to see estimated CO₂ by transport mode.</p>
+        <div class="modal-row">
+          <input id="compare-km" type="number" min="1" value="5000" /> <span>km</span>
+          <button id="compare-go">Compare</button>
+        </div>
+        <div id="compare-result" class="compare-result"></div>
+        <div class="modal-hint">Figures are estimates from per-km emission factors (see README).</div>
+      </div>
+    </div>
+
+    <!-- Layer toggles -->
+    <div id="layer-toggles" class="panel">
+      <label><input type="checkbox" id="toggle-flights" checked /> ✈ Flights <span id="flight-count">0</span></label>
+      <label><input type="checkbox" id="toggle-ships" checked /> 🚢 Ships <span id="ship-count">0</span></label>
+      <div id="source-line" class="source-line"></div>
+    </div>
+
+    <!-- Right: tracking detail panel -->
+    <aside id="track-panel" class="panel hidden">
+      <button id="track-close" aria-label="Close">×</button>
+      <div id="track-content"></div>
+    </aside>
+
+    <!-- Bottom-right: local clock + tracked zone clock -->
+    <div id="clock-panel" class="panel">
+      <div id="tracked-clock" class="tracked-clock hidden"></div>
+      <div class="local-clock">
+        <div class="ck-label">YOUR LOCAL TIME</div>
+        <div id="local-time" class="ck-time">--:--:--</div>
+        <div id="local-zone" class="ck-zone"></div>
+      </div>
+    </div>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script type="module" src="/js/app.js"></script>
+  </body>
+</html>

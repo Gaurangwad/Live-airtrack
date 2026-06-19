@@ -1,0 +1,27 @@
+{
+  "name": "live-airtrack",
+  "version": "1.0.0",
+  "description": "Real-time global flight & ship tracking with live carbon emissions, flight lookup, weather-along-route and per-zone clocks.",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js"
+  },
+  "keywords": [
+    "flight-tracking",
+    "ship-tracking",
+    "ais",
+    "opensky",
+    "carbon-emissions",
+    "leaflet"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.19.2",
+    "tz-lookup": "^6.1.25",
+    "ws": "^8.17.0"
+  }
+}
